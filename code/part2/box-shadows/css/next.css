@@ -1,0 +1,11 @@
+.next {
+    position: fixed;
+    right: 30px;
+    top: 40%;
+    width: 100px;
+    height: 140px;
+    /* background-color: pink; */
+    background-image: url('../img/egg.png');
+    background-size: cover;
+    z-index: 10000;
+}

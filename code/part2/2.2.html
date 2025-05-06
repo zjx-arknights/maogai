@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>逼真的玻璃卡片悬停效果</title>
+    <link rel="stylesheet" href="2.2.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="head">截至2025年，中国的就业形势呈现出一定的特点和挑战：</div>
+        <div class="card">
+            <div class="content">
+                <h2>01</h2>
+                <h3>稳定和扩大就业的任务繁重</h3>
+                <p>
+                <ul>
+                    <li>面对应届毕业生数量庞大（2025年应届高校毕业生达到1222万人）</li>
+                    <li>脱贫人口务工规模需要维持在3000万以上</li>
+                    <li>大量农村转移劳动力的就业需求，压力依然存在</li>
+                </ul>
+                </p>
+                <!-- <a href="#">Read More</a> -->
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2>02</h2>
+                <h3>结构性矛盾突出</h3>
+                <p>
+                <ul>
+                    <li>我国就业市场存在着明显的结构性矛盾</li>
+                    <li>一方面，某些行业或地区可能面临人才短缺的问题</li>
+                    <li>另一方面，求职者的能力与市场需求之间可能存在不匹配的情况，特别是在新兴产业和服务业领域</li>
+                </ul>
+                </p>
+                <!-- <a href="#">Read More</a> -->
+            </div>
+        </div>
+        <div class="card">
+            <div class="content">
+                <h2>03</h2>
+                <h3>青年就业问题</h3>
+                <p>
+                <ul>
+                    <li>对于年轻人而言，找到合适的工作仍然是一个难题</li>
+                    <li>尤其是在经济转型期，传统产业对劳动力的需求减少</li>
+                    <li>而新兴行业所需的技能和知识尚未被广泛掌握</li>
+                </ul>
+                </p>
+                <a href="box-shadows/index.html">Read More</a>
+            </div>
+        </div>
+    </div>
+    <script src="vanilla-tilt.js"></script>
+    <script>
+        // vanilla-tilt.js是一个平滑的3D倾斜JS库，具体参数配置度娘可查到
+        VanillaTilt.init(document.querySelectorAll(".card"), {
+            max: 15,  //最大倾斜度数
+            speed: 400,  //倾斜转换的速度
+            glare: true,  //是否开启眩光效果
+            "max-glare": 1  //最大眩光的不透明度
+        })
+    </script>
+</body>
+
+</html>

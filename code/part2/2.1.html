@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>民生领域应用与就业形势</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .slide {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: all 0.5s ease;
+            position: relative;
+        }
+
+        /* 第一页文字样式 */
+        .software-apps {
+            font-size: 32px;
+            line-height: 1.6;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #333;
+            animation:
+                typing 3.5s steps(40, end) forwards,
+                blink-caret .75s step-end infinite;
+            width: 0;
+            margin: 0 auto;
+            text-align: left;
+            padding-right: 2px;
+        }
+
+        /* 第二页文字容器 */
+        .text-transition-container {
+            position: relative;
+            height: 120px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 原始文字样式 */
+        .original-text {
+            position: absolute;
+            font-size: 24px;
+            line-height: 1.6;
+            animation: fadeOut 1s ease forwards 0.5s;
+        }
+
+        /* "民生"文字样式 */
+        .minsheng-highlight {
+            position: absolute;
+            font-size: 24px;
+            color: #1a73e8;
+            font-weight: bold;
+            opacity: 0;
+            animation:
+                highlightFadeIn 1s ease forwards 1s,
+                zoomAndFloat 3s ease forwards 2s;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0
+            }
+
+            to {
+                width: 100%
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent
+            }
+
+            50% {
+                border-color: #333
+            }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+
+        @keyframes highlightFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(1);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes zoomAndFloat {
+            0% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(3);
+                opacity: 1;
+            }
+        }
+
+        .person-scene {
+            position: relative;
+            width: 300px;
+            height: 400px;
+            margin: 40px auto;
+        }
+
+        .person-img {
+            width: 180px;
+            height: 240px;
+            position: absolute;
+            bottom: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            object-fit: contain;
+        }
+
+        .mountain {
+            width: 250px;
+            height: 0;
+            background-color: #34a853;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            animation: fallDown 1.5s ease forwards 0.5s;
+        }
+
+        .mountain-text {
+            color: white;
+            font-size: 32px;
+            font-weight: bold;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeInText 0.5s ease forwards 1.5s;
+        }
+
+        .employment-info {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 40px auto;
+            text-align: left;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .employment-info.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .employment-item {
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: all 0.3s ease;
+        }
+
+        .employment-item.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .employment-item h3 {
+            color: #ea4335;
+            margin-bottom: 8px;
+        }
+
+        .employment-item ul {
+            padding-left: 20px;
+        }
+
+        .employment-item li {
+            margin-bottom: 5px;
+            line-height: 1.5;
+        }
+
+        .nav-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            background-color: #fbbc05;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-button:hover {
+            transform: scale(1.1);
+            background-color: #ffa000;
+        }
+
+        .nav-button i {
+            font-size: 30px;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fallDown {
+            0% {
+                height: 0;
+                top: -50px;
+            }
+
+            70% {
+                height: 220px;
+                top: 100px;
+            }
+
+            100% {
+                height: 220px;
+                top: 180px;
+            }
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes personCrush {
+            0% {
+                transform: translateX(-50%) scale(1);
+            }
+
+            50% {
+                transform: translateX(-50%) scale(0.7) translateY(10px);
+            }
+
+            100% {
+                transform: translateX(-50%) scale(0.5) translateY(20px);
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="slide" id="slide1">
+            <div class="software-apps">
+                软件在教育、医疗、环保、公共服务等民生领域都有着广泛的应用
+            </div>
+        </div>
+
+        <div class="slide hidden" id="slide2">
+            <div class="text-transition-container">
+                <div class="original-text">
+                    软件在教育、医疗、环保、公共服务等民生领域都有着广泛的应用
+                </div>
+                <div class="minsheng-highlight">民生</div>
+            </div>
+        </div>
+
+        <div class="slide hidden" id="slide3">
+            <div class="person-scene">
+                <img src="image/people.png" class="person-img" id="person">
+                <div class="mountain">
+                    <div class="mountain-text">就业</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide hidden" id="slide4">
+            <div class="employment-info">
+                <h2>就业形势</h2>
+                <p>截至2025年，中国的就业形势呈现出一定的特点和挑战：</p>
+
+                <div class="employment-item" id="item1">
+                    <h3>稳定和扩大就业的任务繁重</h3>
+                    <ul>
+                        <li>面对应届毕业生数量庞大（2025年应届高校毕业生达到1222万人）</li>
+                        <li>脱贫人口务工规模需要维持在3000万以上</li>
+                        <li>大量农村转移劳动力的就业需求，压力依然存在</li>
+                    </ul>
+                </div>
+
+                <div class="employment-item" id="item2">
+                    <h3>结构性矛盾突出</h3>
+                    <ul>
+                        <li>我国就业市场存在着明显的结构性矛盾</li>
+                        <li>一方面，某些行业或地区可能面临人才短缺的问题</li>
+                        <li>另一方面，求职者的能力与市场需求之间可能存在不匹配的情况，特别是在新兴产业和服务业领域</li>
+                    </ul>
+                </div>
+
+                <div class="employment-item" id="item3">
+                    <h3>青年就业问题</h3>
+                    <ul>
+                        <li>对于年轻人而言，找到合适的工作仍然是一个难题</li>
+                        <li>尤其是在经济转型期，传统产业对劳动力的需求减少</li>
+                        <li>而新兴行业所需的技能和知识尚未被广泛掌握</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-button" id="nextButton">
+        <i class="fas fa-lightbulb"></i>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 4;
+
+        document.getElementById('nextButton').addEventListener('click', function () {
+            // Hide current slide
+            document.getElementById(`slide${currentSlide}`).classList.add('hidden');
+
+            // Move to next slide
+            currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+
+            // Show next slide
+            const nextSlide = document.getElementById(`slide${currentSlide}`);
+            nextSlide.classList.remove('hidden');
+
+            // 当回到第一页时重置打字动画
+            if (currentSlide === 1) {
+                const textElement = document.querySelector('.software-apps');
+                textElement.style.animation = 'none';
+                void textElement.offsetWidth; // 触发重绘
+                textElement.style.animation = 'typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite';
+            }
+
+            // Special handling for slide 3 (person and mountain)
+            if (currentSlide === 3) {
+                // Reset animations
+                const person = document.getElementById('person');
+                const mountain = document.querySelector('.mountain');
+                const mountainText = document.querySelector('.mountain-text');
+
+                person.style.animation = 'none';
+                mountain.style.animation = 'none';
+                mountainText.style.animation = 'none';
+
+                // Trigger reflow to reset animations
+                void person.offsetWidth;
+                void mountain.offsetWidth;
+                void mountainText.offsetWidth;
+
+                // Apply animations again
+                mountain.style.animation = 'fallDown 1.5s ease forwards 0.5s';
+                mountainText.style.animation = 'fadeInText 0.5s ease forwards 1.5s';
+
+                // Add crush effect to person after mountain falls
+                setTimeout(() => {
+                    person.style.animation = 'personCrush 1.5s ease forwards';
+                }, 2000);
+            }
+
+            // Special handling for slide 4
+            if (currentSlide === 4) {
+                window.location.href = '2.2.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圆明园历史</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "SimSun", sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 3s ease;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .content-container {
+            width: 100%;
+            max-width: 800px;
+            height: 80vh;
+            position: relative;
+        }
+
+        .content {
+            position: absolute;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .text-container {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            text-align: left;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        .typing-text {
+            display: inline;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 28px;
+            background-color: #333;
+            animation: blink 0.7s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .image-container {
+            margin: 0 auto;
+            width: 600px;
+            height: 300px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease, transform 1s ease;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .caption {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            font-size: 16px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 5px 0;
+            font-style: italic;
+            z-index: 2;
+        }
+
+        .continue-prompt {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #666;
+            opacity: 0;
+            transition: opacity 1s ease;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* 火烧特效 */
+        .fire-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, rgba(255, 100, 0, 0.8), rgba(255, 200, 0, 0.5), transparent);
+            opacity: 0;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .fire-particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255, 150, 0, 0.8), rgba(255, 50, 0, 0));
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: fire-float 3s ease-out infinite;
+            z-index: 4;
+        }
+
+        @keyframes fire-float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        .burn-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255, 100, 0, 0.8), rgba(255, 50, 0, 0));
+            z-index: 100;
+            opacity: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content-container">
+        <div class="content">
+            <div class="text-container">
+                <div id="text1" class="typing-text"></div>
+                <span class="cursor"></span>
+            </div>
+            <div id="image1" class="image-container">
+                <img src="image/1.png" alt="圆明园复原图">
+                <div class="caption">圆明园复原效果图</div>
+                <div class="fire-effect" id="fireEffect1"></div>
+            </div>
+            <div id="continue1" class="continue-prompt">点击屏幕继续...</div>
+        </div>
+
+        <div class="content" style="display: none;">
+            <div class="text-container">
+                <div id="text2" class="typing-text"></div>
+                <span class="cursor"></span>
+            </div>
+            <div id="image2" class="image-container">
+                <img src="image/2.png" alt="圆明园遗址">
+                <div class="caption">如今的圆明园遗址</div>
+                <div class="fire-effect" id="fireEffect2"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="burn-transition" id="burnTransition"></div>
+
+    <script>
+        // 文字内容
+        const text1 = "圆明园，是一座历史悠久的皇家园林，曾被誉为万园之园。它由清朝康熙、雍正、乾隆三代皇帝历时约150年建成，集东西方建筑艺术之大成，不仅有中国传统园林的精致布局，还包括了模仿欧洲风格的建筑群。圆明园不仅是清朝皇室休闲娱乐之地，也是处理政务的重要场所。";
+        const text2 = "在1860年的第二次鸦片战争期间，英法联军攻入北京，对圆明园进行了掠夺和焚毁，造成了不可估量的文化损失。此后，圆明园虽经修复，但在1900年的义和团运动后再次遭到破坏，逐渐沦为废墟。";
+
+        // 创建火焰粒子
+        function createFireParticles(container, count) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('fire-particle');
+
+                // 随机大小和位置
+                const size = Math.random() * 30 + 10;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.bottom = '0';
+
+                // 随机动画延迟
+                particle.style.animationDelay = `${Math.random() * 2}s`;
+
+                container.appendChild(particle);
+            }
+        }
+
+        // 播放火烧特效
+        function playBurnEffect() {
+            const burnTransition = document.getElementById('burnTransition');
+
+            // 显示全屏火烧效果
+            burnTransition.style.transition = 'none';
+            burnTransition.style.opacity = '0.8';
+            burnTransition.style.transform = 'scale(0.1)';
+
+            setTimeout(() => {
+                burnTransition.style.transition = 'all 1.5s ease-out';
+                burnTransition.style.opacity = '0';
+                burnTransition.style.transform = 'scale(1.5)';
+            }, 10);
+
+            // 在第一张图片上显示火焰效果
+            const fireEffect1 = document.getElementById('fireEffect1');
+            fireEffect1.style.transition = 'opacity 2s';
+            fireEffect1.style.opacity = '0.7';
+
+            // 创建火焰粒子
+            createFireParticles(fireEffect1, 15);
+
+            // 2秒后淡出火焰效果
+            setTimeout(() => {
+                fireEffect1.style.opacity = '0';
+            }, 2000);
+        }
+
+        // 打字效果函数
+        function typeWriter(element, text, speed, callback) {
+            let i = 0;
+            const cursor = element.nextElementSibling;
+
+            function typing() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typing, speed);
+                } else {
+                    cursor.style.animation = 'none';
+                    if (callback) callback();
+                }
+            }
+
+            typing();
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 背景渐暗
+            document.body.style.backgroundColor = '#333';
+            document.body.style.color = '#fff';
+
+            // 显示内容
+            setTimeout(() => {
+                document.querySelector('.content').style.opacity = '1';
+
+                // 开始第一段打字
+                setTimeout(() => {
+                    typeWriter(document.getElementById('text1'), text1, 50, () => {
+                        // 显示第一张图片
+                        setTimeout(() => {
+                            document.getElementById('image1').style.opacity = '1';
+                            document.getElementById('image1').style.transform = 'translateY(0)';
+
+                            // 显示继续提示
+                            setTimeout(() => {
+                                document.getElementById('continue1').style.opacity = '1';
+                            }, 500);
+                        }, 500);
+                    });
+                }, 1000);
+            }, 1000);
+        });
+
+        // 点击事件处理
+        let currentPage = 0;
+        document.body.addEventListener('click', () => {
+            if (currentPage === 0) {
+                // 播放火烧特效
+                playBurnEffect();
+
+                // 隐藏继续提示
+                document.getElementById('continue1').style.opacity = '0';
+
+                // 延迟后切换到第二页
+                setTimeout(() => {
+                    // 切换到第二页
+                    document.querySelectorAll('.content')[0].style.display = 'none';
+                    document.querySelectorAll('.content')[1].style.display = 'block';
+                    document.querySelectorAll('.content')[1].style.opacity = '1';
+
+                    // 开始第二段打字
+                    setTimeout(() => {
+                        typeWriter(document.getElementById('text2'), text2, 50, () => {
+                            // 显示第二张图片
+                            setTimeout(() => {
+                                document.getElementById('image2').style.opacity = '1';
+                                document.getElementById('image2').style.transform = 'translateY(0)';
+
+                                // 在第二张图片上显示余烬效果
+                                const fireEffect2 = document.getElementById('fireEffect2');
+                                fireEffect2.style.opacity = '0.3';
+                                createFireParticles(fireEffect2, 8);
+                            }, 500);
+                        });
+                    }, 500);
+
+                    currentPage = 1;
+                }, 1500); // 等待火烧动画完成
+            }
+            else {
+                // console.log(currentPage)
+                window.location.href = '粒子流_standard/index.html'
+            }
+        });
+    </script>
+</body>
+
+</html>

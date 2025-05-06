@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>纯CSS实现翻书动画</title>
+    <link rel="stylesheet" href="84.css">
+</head>
+
+<body>
+    <div class="book">
+        <div class="cover">
+            <span>点击修复</span>
+        </div>
+        <div class="content">
+            <a href="https://www.bilibili.com/video/BV16zdSYRE19" target="_blank" id="mysteryLink">神秘代码</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('mysteryLink').addEventListener('click', function (e) {
+
+
+            // 改变链接文本
+
+
+            // 改变链接地址（这里设置为B站首页作为示例，您可以替换成实际需要的链接）
+
+
+            // 延迟后跳转
+            setTimeout(() => {
+                this.target = '_self'
+                this.href = '3d hover/index.html';
+                this.textContent = '看完了，那继续吧';
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
