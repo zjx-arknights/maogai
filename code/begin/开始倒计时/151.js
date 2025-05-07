@@ -38,8 +38,8 @@ function run() {
 
 // 为'重来'按钮绑定点击事件
 replay.addEventListener('click', function () {
-    window.open('../../part1/part1结束.html')
+    window.open('../网站界面/index.html')
 })
 
-// 默认开启倒计时
+// 默认开启倒计时index
 run();
