@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS立方体</title>
+    <link rel="stylesheet" href="261.css">
+    <style>
+        /* 添加鼠标控制旋转的样式 */
+        .scene {
+            animation: none;
+            /* 移除自动旋转动画 */
+            cursor: grab;
+        }
+
+        .scene:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scene">
+        <div class="cube">
+            <div class="face front"></div>
+            <div class="face back"></div>
+            <div class="face right"></div>
+            <div class="face left"></div>
+            <div class="face top"></div>
+            <div class="face bottom"></div>
+        </div>
+    </div>
+    <div class="next">next</div>
+    <script>
+        const scene = document.querySelector('.scene');
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let rotation = { x: 0, y: 0 };
+
+        // 鼠标按下事件
+        scene.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+            scene.style.cursor = 'grabbing';
+        });
+
+        // 鼠标移动事件
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - previousMousePosition.x;
+            const deltaY = e.clientY - previousMousePosition.y;
+
+            rotation.y += deltaX * 0.5;
+            rotation.x -= deltaY * 0.5;
+
+            scene.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
+
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        // 鼠标释放事件
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            scene.style.cursor = 'grab';
+        });
+
+        // 触摸屏支持
+        scene.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.touches[0].clientX - previousMousePosition.x;
+            const deltaY = e.touches[0].clientY - previousMousePosition.y;
+
+            rotation.y += deltaX * 0.5;
+            rotation.x -= deltaY * 0.5;
+
+            scene.style.transform = `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`;
+
+            previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            e.preventDefault();
+        });
+
+        document.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        const next = document.querySelector('.next')
+        next.addEventListener('click', () => {
+            window.location.href = "../Blog顶置卡片设计（css+js）/index.html"
+        })
+    </script>
+</body>
+
+</html>
