@@ -5,14 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>民生领域应用与就业形势</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body {
-            font-family: 'Microsoft YaHei', sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #1a1a1a;
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #e0e0e0;
             overflow-x: hidden;
+        }
+
+        /* 动态粒子背景 */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: particleMove 20s linear infinite;
+        }
+
+        @keyframes particleMove {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-100%); }
         }
 
         .container {
@@ -32,23 +54,45 @@
             position: relative;
         }
 
-        /* 第一页文字样式 */
+        /* Slide 1 样式 */
         .software-apps {
             font-size: 32px;
             line-height: 1.6;
-            overflow: hidden;
+            position: relative;
             white-space: nowrap;
-            border-right: 2px solid #333;
-            animation:
-                typing 3.5s steps(40, end) forwards,
-                blink-caret .75s step-end infinite;
-            width: 0;
-            margin: 0 auto;
-            text-align: left;
-            padding-right: 2px;
+            font-kerning: none;
         }
 
-        /* 第二页文字容器 */
+        .software-apps span {
+            opacity: 0;
+            filter: blur(5px);
+            animation: fadeInBlur 0.5s ease forwards;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        @keyframes fadeInBlur {
+            0% { opacity: 0; filter: blur(5px); }
+            100% { opacity: 1; filter: blur(0); }
+        }
+
+        .software-apps::after {
+            content: '';
+            position: absolute;
+            right: -10px;
+            top: 0;
+            width: 2px;
+            height: 100%;
+            background: #1a73e8;
+            box-shadow: 0 0 5px #1a73e8, 0 0 10px #1a73e8;
+            animation: pulseCursor 1s infinite;
+        }
+
+        @keyframes pulseCursor {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Slide 2 样式 */
         .text-transition-container {
             position: relative;
             height: 120px;
@@ -58,90 +102,59 @@
             align-items: center;
         }
 
-        /* 原始文字样式 */
         .original-text {
-            position: absolute;
-            font-size: 24px;
-            line-height: 1.6;
-            animation: fadeOut 1s ease forwards 0.5s;
+            font-size: 32px;
+            white-space: nowrap;
+            font-kerning: none;
         }
 
-        /* "民生"文字样式 */
+        .original-text span {
+            display: inline-block;
+            animation: scatter 1s ease forwards;
+            animation-delay: calc(0.05s * var(--i));
+        }
+
+        @keyframes scatter {
+            0% { opacity: 1; transform: translate(0, 0); }
+            100% { opacity: 0; transform: translate(var(--tx), var(--ty)); }
+        }
+
         .minsheng-highlight {
             position: absolute;
-            font-size: 24px;
+            font-size: 32px;
             color: #1a73e8;
             font-weight: bold;
             opacity: 0;
             animation:
-                highlightFadeIn 1s ease forwards 1s,
-                zoomAndFloat 3s ease forwards 2s;
+                particleGather 2s ease forwards 1s,
+                glowRotate 3s ease forwards 3s;
         }
 
-        @keyframes typing {
-            from {
-                width: 0
-            }
-
-            to {
-                width: 100%
-            }
+        @keyframes particleGather {
+            0% { opacity: 0; transform: scale(0); }
+            100% { opacity: 1; transform: scale(1.2); }
         }
 
-        @keyframes blink-caret {
-
-            from,
-            to {
-                border-color: transparent
-            }
-
-            50% {
-                border-color: #333
-            }
+        @keyframes glowRotate {
+            0% { transform: scale(1.2) rotateX(0deg) rotateY(0deg); text-shadow: 0 0 10px #1a73e8; }
+            50% { transform: scale(3) rotateX(360deg) rotateY(360deg); text-shadow: 0 0 20px #1a73e8, 0 0 30px #1a73e8; }
+            100% { transform: scale(3) translateY(-100vh); text-shadow: 0 0 20px #1a73e8, 0 0 30px #1a73e8; }
         }
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-            }
-        }
-
-        @keyframes highlightFadeIn {
-            from {
-                opacity: 0;
-                transform: scale(1);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1.2);
-            }
-        }
-
-        @keyframes zoomAndFloat {
-            0% {
-                transform: scale(1.2);
-                opacity: 1;
-            }
-
-            100% {
-                transform: scale(3);
-                opacity: 1;
-            }
-        }
-
+        /* Slide 3 样式 - 山将人压垮 */
         .person-scene {
             position: relative;
-            width: 300px;
-            height: 400px;
+            width: 400px;
+            height: 500px;
             margin: 40px auto;
+            perspective: 1000px;
         }
 
         .person-img {
             width: 180px;
             height: 240px;
             position: absolute;
-            bottom: -120px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
             z-index: 2;
@@ -149,12 +162,12 @@
         }
 
         .mountain {
-            width: 250px;
-            height: 0;
-            background-color: #34a853;
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #34a853, #1a3c34);
             clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
             position: absolute;
-            top: -50px;
+            top: -300px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 1;
@@ -162,23 +175,60 @@
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            animation: fallDown 1.5s ease forwards 0.5s;
+            animation: fallDown 2s ease-in-out forwards;
+            box-shadow: 0 0 20px rgba(52, 168, 83, 0.5);
         }
 
         .mountain-text {
-            color: white;
+            color: #e0e0e0;
             font-size: 32px;
             font-weight: bold;
-            margin-top: 30px;
             opacity: 0;
-            animation: fadeInText 0.5s ease forwards 1.5s;
+            transform: translateY(20px);
+            animation: textEmerge 0.5s ease forwards 2.5s;
+            text-shadow: 0 0 10px #34a853;
         }
 
+        .ground-impact {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: radial-gradient(circle, rgba(255,255,255,0.5), transparent);
+            opacity: 0;
+            animation: impactWave 1s ease forwards 2s;
+        }
+
+        @keyframes fallDown {
+            0% { top: -300px; }
+            80% { top: 150px; }
+            100% { top: 150px; }
+        }
+
+        @keyframes textEmerge {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes impactWave {
+            0% { width: 0; opacity: 0; }
+            50% { width: 400px; opacity: 0.5; }
+            100% { width: 600px; opacity: 0; }
+        }
+
+        @keyframes personCrush {
+            0% { transform: translateX(-50%) scaleY(1); }
+            100% { transform: translateX(-50%) scaleY(0.1); }
+        }
+
+        /* Slide 4 样式 */
         .employment-info {
-            background-color: white;
+            background-color: #2a2a2a;
             border-radius: 10px;
             padding: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
             max-width: 800px;
             margin: 40px auto;
             text-align: left;
@@ -224,108 +274,59 @@
             right: 30px;
             width: 60px;
             height: 60px;
-            background-color: #fbbc05;
+            background-color: #8b00ff;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px #8b00ff, 0 0 20px #8b00ff;
             transition: all 0.3s ease;
             z-index: 100;
         }
 
         .nav-button:hover {
             transform: scale(1.1);
-            background-color: #ffa000;
+            background-color: #a020f0;
+            box-shadow: 0 0 20px #a020f0, 0 0 40px #a020f0;
         }
 
         .nav-button i {
             font-size: 30px;
-            color: white;
+            color: #e0e0e0;
         }
 
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fallDown {
-            0% {
-                height: 0;
-                top: -50px;
-            }
-
-            70% {
-                height: 220px;
-                top: 100px;
-            }
-
-            100% {
-                height: 220px;
-                top: 180px;
-            }
-        }
-
-        @keyframes fadeInText {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes personCrush {
-            0% {
-                transform: translateX(-50%) scale(1);
-            }
-
-            50% {
-                transform: translateX(-50%) scale(0.7) translateY(10px);
-            }
-
-            100% {
-                transform: translateX(-50%) scale(0.5) translateY(20px);
-            }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         .hidden {
             display: none;
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
         <div class="slide" id="slide1">
-            <div class="software-apps">
-                软件在教育、医疗、环保、公共服务等民生领域都有着广泛的应用
-            </div>
+            <div class="software-apps"><span>软</span><span>件</span><span>在</span><span>教</span><span>育</span><span>、</span><span>医</span><span>疗</span><span>、</span><span>环</span><span>保</span><span>、</span><span>公</span><span>共</span><span>服</span><span>务</span><span>等</span><span>民</span><span>生</span><span>领</span><span>域</span><span>都</span><span>有</span><span>着</span><span>广</span><span>泛</span><span>的</span><span>应</span><span>用</span></div>
         </div>
 
         <div class="slide hidden" id="slide2">
             <div class="text-transition-container">
-                <div class="original-text">
-                    软件在教育、医疗、环保、公共服务等民生领域都有着广泛的应用
-                </div>
-                <div class="minsheng-highlight">民生</div>
+                <div class="original-text"><span>软</span><span>件</span><span>在</span><span>教</span><span>育</span><span>、</span><span>医</span><span>疗</span><span>、</span><span>环</span><span>保</span><span>、</span><span>公</span><span>共</span><span>服</span><span>务</span><span>等</span><span>民</span><span>生</span><span>领</span><span>域</span><span>都</span><span>有</span><span>着</span><span>广</span><span>泛</span><span>的</span><span>应</span><span>用</span></div>
+                <div class="minsheng-highlight"><span>民</span><span>生</span></div>
             </div>
         </div>
 
         <div class="slide hidden" id="slide3">
             <div class="person-scene">
                 <img src="image/people.png" class="person-img" id="person">
-                <div class="mountain">
+                <div class="mountain" id="mountain">
                     <div class="mountain-text">就业</div>
                 </div>
+                <div class="ground-impact" id="groundImpact"></div>
             </div>
         </div>
 
@@ -369,58 +370,104 @@
     </div>
 
     <script>
-        let currentSlide = 1;
-        const totalSlides = 4;
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 1;
+            const totalSlides = 4;
 
-        document.getElementById('nextButton').addEventListener('click', function () {
-            // Hide current slide
-            document.getElementById(`slide${currentSlide}`).classList.add('hidden');
+            // Slide 1 动画初始化
+            const slide1Spans = document.querySelectorAll('#slide1 .software-apps span');
+            slide1Spans.forEach((span, index) => {
+                span.style.setProperty('--i', index);
+            });
 
-            // Move to next slide
-            currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
+            // Slide 2 动画初始化
+            const originalSpans = document.querySelectorAll('.original-text span');
+            originalSpans.forEach((span, index) => {
+                span.style.setProperty('--i', index);
+                const randomX = (Math.random() - 0.5) * 100;
+                const randomY = (Math.random() - 0.5) * 100;
+                span.style.setProperty('--tx', `${randomX}px`);
+                span.style.setProperty('--ty', `${randomY}px`);
+            });
 
-            // Show next slide
-            const nextSlide = document.getElementById(`slide${currentSlide}`);
-            nextSlide.classList.remove('hidden');
+            document.getElementById('nextButton').addEventListener('click', function () {
+                const currentSlideElement = document.getElementById(`slide${currentSlide}`);
+                currentSlideElement.style.transition = 'opacity 0.3s ease';
+                currentSlideElement.classList.add('hidden');
 
-            // 当回到第一页时重置打字动画
-            if (currentSlide === 1) {
-                const textElement = document.querySelector('.software-apps');
-                textElement.style.animation = 'none';
-                void textElement.offsetWidth; // 触发重绘
-                textElement.style.animation = 'typing 3.5s steps(40, end) forwards, blink-caret .75s step-end infinite';
-            }
+                // Move to next slide
+                currentSlide = currentSlide < totalSlides ? currentSlide + 1 : 1;
 
-            // Special handling for slide 3 (person and mountain)
-            if (currentSlide === 3) {
-                // Reset animations
-                const person = document.getElementById('person');
-                const mountain = document.querySelector('.mountain');
-                const mountainText = document.querySelector('.mountain-text');
+                // Show next slide with transition
+                const nextSlide = document.getElementById(`slide${currentSlide}`);
+                nextSlide.style.transition = 'opacity 0.3s ease';
+                nextSlide.classList.remove('hidden');
 
-                person.style.animation = 'none';
-                mountain.style.animation = 'none';
-                mountainText.style.animation = 'none';
+                // Reset Slide 1 animations
+                if (currentSlide === 1) {
+                    const spans = document.querySelectorAll('#slide1 .software-apps span');
+                    spans.forEach((span, index) => {
+                        span.style.animation = 'none';
+                        span.offsetWidth;
+                        span.style.animation = '';
+                        span.style.setProperty('--i', index);
+                    });
+                }
 
-                // Trigger reflow to reset animations
-                void person.offsetWidth;
-                void mountain.offsetWidth;
-                void mountainText.offsetWidth;
+                // Reset Slide 2 animations
+                if (currentSlide === 2) {
+                    const spans = document.querySelectorAll('.original-text span');
+                    spans.forEach((span, index) => {
+                        span.style.animation = 'none';
+                        span.offsetWidth;
+                        span.style.animation = '';
+                        span.style.setProperty('--i', index);
+                        const randomX = (Math.random() - 0.5) * 100;
+                        const randomY = (Math.random() - 0.5) * 100;
+                        span.style.setProperty('--tx', `${randomX}px`);
+                        span.style.setProperty('--ty', `${randomY}px`);
+                    });
+                    const highlight = document.querySelector('.minsheng-highlight');
+                    highlight.style.animation = 'none';
+                    highlight.offsetWidth;
+                    highlight.style.animation = '';
+                }
 
-                // Apply animations again
-                mountain.style.animation = 'fallDown 1.5s ease forwards 0.5s';
-                mountainText.style.animation = 'fadeInText 0.5s ease forwards 1.5s';
+                // Special handling for slide 3 (person and mountain)
+                if (currentSlide === 3) {
+                    // Reset animations
+                    const person = document.getElementById('person');
+                    const mountain = document.getElementById('mountain');
+                    const mountainText = document.querySelector('.mountain-text');
+                    const groundImpact = document.getElementById('groundImpact');
 
-                // Add crush effect to person after mountain falls
-                setTimeout(() => {
-                    person.style.animation = 'personCrush 1.5s ease forwards';
-                }, 2000);
-            }
+                    person.style.animation = 'none';
+                    mountain.style.animation = 'none';
+                    mountainText.style.animation = 'none';
+                    groundImpact.style.animation = 'none';
 
-            // Special handling for slide 4
-            if (currentSlide === 4) {
-                window.location.href = '2.2.html';
-            }
+                    // Trigger reflow to reset animations
+                    person.offsetWidth;
+                    mountain.offsetWidth;
+                    mountainText.offsetWidth;
+                    groundImpact.offsetWidth;
+
+                    // Apply animations again
+                    mountain.style.animation = 'fallDown 2s ease-in-out forwards';
+                    mountainText.style.animation = 'textEmerge 0.5s ease forwards 2.5s';
+                    groundImpact.style.animation = 'impactWave 1s ease forwards 2s';
+
+                    // Add crush effect to person when mountain falls
+                    setTimeout(() => {
+                        person.style.animation = 'personCrush 0.5s ease forwards';
+                    }, 1800);
+                }
+
+                // Special handling for slide 4
+                if (currentSlide === 4) {
+                    window.location.href = '2.2.html';
+                }
+            });
         });
     </script>
 </body>
