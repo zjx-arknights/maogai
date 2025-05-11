@@ -19,7 +19,7 @@ body {
 .letter {
     font-size: 160px;
     font-weight: bold;
-    color: #725e82;
+    color: #c1421b;
     /* 转大写 */
     text-transform: uppercase;
     /* 绝对固定定位 */
@@ -86,7 +86,7 @@ body {
     }
 
     100% {
-        background-color: #725e82;
+        background-color: #c1421b;
     }
 }
 
@@ -98,7 +98,7 @@ body {
 
     100% {
         top: -600px;
-        color: #725e82;
+        color: #c1421b;
     }
 }
 
@@ -110,7 +110,7 @@ body {
 
     100% {
         top: -400px;
-        color: #725e82;
+        color: #c1421b;
     }
 }
 
@@ -122,7 +122,7 @@ body {
 
     100% {
         top: -1000px;
-        color: #725e82;
+        color: #c1421b;
     }
 }
 
@@ -134,7 +134,7 @@ body {
 
     100% {
         top: -1000px;
-        color: #725e82;
+        color: #c1421b;
     }
 }
 
@@ -146,7 +146,7 @@ body {
 
     100% {
         top: -1000px;
-        color: #725e82;
+        color: #c1421b;
     }
 }
 
@@ -165,7 +165,7 @@ body {
 .container2::before {
     content: '软件续写传承';
     position: absolute;
-    left: 0;
+    left: 50px;
     top: 0;
     color: #eeea06;
     width: 0px;
@@ -173,7 +173,7 @@ body {
     overflow: hidden;
     border-right: 5px solid #eeea06;
     /* 添加 2s 延迟，然后执行 5s 动画，无限循环 */
-    animation: move 4s linear 3s forwards;
+    animation: move 2s linear 3s forwards;
     filter: drop-shadow(0 0 50px #eeea06);
 }
 
@@ -183,6 +183,6 @@ body {
     }
 
     100% {
-        width: 40%;
+        width: 35%;
     }
 }
