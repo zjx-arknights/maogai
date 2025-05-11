@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <title>打散文字随机浮动特效</title>
+    <link rel="stylesheet" href="170.css">
+</head>
+
+<body>
+    <div class="loader">
+        <div class="spinner"></div>
+        <div class="text">loading</div>
+    </div>
+    <article class="art">
+        <p id="text">
+            传统硬件设备依赖物理性能的局限已被软件定义的智能设备打破——硬件如同躯体，而软件赋予其灵魂。例如，NASA通过高精度仿真软件模拟火星着陆环境，将复杂的数据转化为可视化决策依据，大幅降低任务风险。据Statista数据显示，全球软件市场规模年均增长率超过10%，企业数字化转型投入中软件占比逐年攀升，进一步印证了软件通过数据驱动决策、优化流程和释放硬件潜力，成为科技发展的关键赋能者
+        </p>
+        <button id="btn">软件作为科技的“神经中枢”，正成为驱动技术革新的核心力量</button>
+        <button id="btn2">下一页</button>
+    </article>
+</body>
+
+</html>
+
+<!-- 引入插件 -->
+<script src="neontext.min.js"></script>
+<script>
+    // 要操作的元素
+    // 按钮
+    const resetBtn = document.getElementById('btn');
+    const resetBtn2 = document.getElementById('btn2');
+    resetBtn2.style.display = 'none'
+    // 初始化
+    const neontext = new Neontext('text');
+    // 打乱文字
+    neontext.render.run();
+
+    // 为按钮绑定点击事件
+    resetBtn.addEventListener('click', function () {
+        // 文字恢复
+        neontext.render.killer();
+        resetBtn.style.display = 'none'
+        resetBtn2.style.display = 'block'
+    })
+
+    resetBtn2.addEventListener('click', function () {
+        window.location.href = '../ds.html'
+    })
+
+    const art = document.querySelector(".art")
+    const load = document.querySelector(".loader")
+    // const body = document.getElementsByTagName("body")
+    art.style.display = 'none'
+    load.style.display = 'block'
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            // 这里是您希望延迟执行的代码
+            load.style.transform = "translateY(450px)";
+
+            // document.body.style.backgroundColor = "white";
+        }, 4000);
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () {
+            // 这里是您希望延迟执行的代码
+            load.style.display = 'none'
+            document.body.style.backgroundColor = "white";
+            art.style.display = 'block'
+            // document.body.style.backgroundColor = "white";
+        }, 5000);
+    });
+</script>

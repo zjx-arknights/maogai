@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>图片展示页面模板-01</title>
+    <!-- 清楚元素默认样式 -->
+    <link rel="stylesheet" href="./css/reset.css">
+    <!-- 自定义 css 变量 -->
+    <link rel="stylesheet" href="./css/variable.css">
+    <!-- 页面标题样式 -->
+    <link rel="stylesheet" href="./css/page-title.css">
+    <!-- 图片展示项样式 -->
+    <link rel="stylesheet" href="./css/image.css">
+    <!-- 页面样式 -->
+    <link rel="stylesheet" href="./css/index.css">
+    <style>
+        .more {
+            z-index: 1100;
+            color: aliceblue;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 图片展示页面 -->
+    <div class="img-display-page">
+        <!-- 图片展示页面中的标题 -->
+        <div class="img-display-page__title">
+            <!-- 标题 -->
+            <h1>软件还能做什么</h1>
+            <!-- 副标题 -->
+            <!-- <p>这是图片展示页面模板-01</p> -->
+        </div>
+        <!-- 图片展示项容器 -->
+        <div class="img-display-page__img-item-container">
+            <!-- 图片展示项 -->
+            <div class="img-item">
+                <!-- 内容容器 -->
+                <div class="content-container">
+                    <!-- 内容 -->
+                    <div class="content">
+                        <!-- 图片 -->
+                        <div class="img">
+                            <img src="./assets/页面5背景图.jpg" alt="">
+                        </div>
+                        <!-- 图片标题 -->
+                        <h2 class="title">软件算法突破是关键
+                        </h2>
+                        <!-- 图片描述 -->
+                        <p class="description">
+                            人工智能的爆发式增长离不开软件算法的持续突破。深度学习框架（如TensorFlow、PyTorch）的成熟，让AI开发从实验室研究走向产业化落地，大幅降低了训练和部署AI模型的难度。大语言模型（如GPT、Gemini）的智能跃迁，依赖于海量代码优化和算法创新，使其能够理解和生成接近人类的语言。在计算机视觉领域，人脸识别、医疗影像分析等技术的进步，同样归功于软件算法的精度提升。典型案例是AlphaGo战胜人类围棋冠军，其核心突破并非硬件算力，而是蒙特卡洛树搜索（MCTS）算法的优化，结合深度强化学习，使AI具备了超越人类的策略思维。可以说，AI的每一次飞跃，本质上都是软件算法的胜利
+                        </p>
+                    </div>
+                </div>
+                <!-- 时间 -->
+                <div class="time-container">
+                    <p class="time"></p>
+                </div>
+            </div>
+        </div>
+        <!-- 图片加载中 -->
+        <div class="img-display-page__loading">
+            <p class="more">more</p>
+        </div>
+        <!-- 没有更多了 -->
+        <div class="img-display-page__not-more">
+            <p>没有更多了</p>
+        </div>
+    </div>
+    <!-- 脚本 -->
+    <!-- 随机生成图片展示项 -->
+    <script src="./js/rand-create-img-item.js"></script>
+    <!-- 控制当前展示图片项 -->
+    <script src="./js/index.js"></script>
+</body>
+
+</html>

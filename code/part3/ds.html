@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陳山羊/页面点击文字</title>
+    <style>
+        body {
+            background-color: rgb(35, 35, 35);
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+        }
+
+        span {
+            /* 让弹出来的文字不被选中，影响操作体验 */
+            user-select: none;
+            cursor: default;
+            font-size: 32px;
+            color: blanchedalmond;
+            position: absolute;
+            transition: 1s;
+            max-width: 300px;
+            /* 设置最大宽度 */
+            word-wrap: break-word;
+            /* 自动换行 */
+            line-height: 1.4;
+            /* 行高 */
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+            /* 文字阴影增加可读性 */
+        }
+
+        h1 {
+            color: whitesmoke;
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>软件是科技创新的"操作系统"</h1>
+    <script>
+        // 设置随机出现的文字数组
+        var arr = [
+            "现代科技发展已进入软件定义一切的时代",
+            "无论是智能手机、超级计算机，还是家用电器、航天器，硬件只是物理载体",
+            "而软件才是赋予其智能和功能的核心",
+            "操作系统（如Windows、Linux、Android）为各类硬件提供了统一的运行平台，使不同设备能够高效协同工作",
+            "例如，一台高性能服务器如果没有操作系统和应用程序，就无法执行任何计算任务",
+            "同样，智能手机若没有iOS或Android系统，就无法运行丰富的应用生态",
+            "软件不仅优化了硬件性能，还推动了跨设备互联互通，使科技产品从孤立走向协同",
+            "可以说，没有软件，再先进的硬件也只是一堆无法沟通的金属和硅片，而软件的存在让科技真正活了起来"
+        ];
+
+        let next = -1;
+
+        // 自动换行函数
+        function autoWrap(text, maxChars = 25) {
+            if (text.length <= maxChars) return text;
+
+            let result = '';
+            let currentLine = '';
+
+            const words = text.split(/(?<=\p{Script=Han})|(?=\p{Script=Han})/u).filter(Boolean);
+
+            for (const word of words) {
+                if ((currentLine + word).length > maxChars) {
+                    result += currentLine + '\n';
+                    currentLine = word;
+                } else {
+                    currentLine += word;
+                }
+            }
+
+            return result + currentLine;
+        }
+
+        document.onclick = function (x) {
+            if (next >= arr.length - 1) {
+                window.location.href = 'front-native-page-template-main/image-display/template-01/index.html';
+                return;
+            }
+
+            // 创建元素节点对象
+            var span = document.createElement("span");
+            // 获取当前鼠标的坐标
+            span.style.left = (x.clientX - 150) + "px"; // 居中显示
+            span.style.top = (x.clientY - 50) + "px";
+
+            // 获取下一条消息并自动换行
+            next++;
+            const wrappedText = autoWrap(arr[next]);
+            span.innerHTML = wrappedText.replace(/\n/g, '<br>');
+
+            // 设置span的动画效果
+            setTimeout(function () {
+                span.style.opacity = "1";
+                span.style.transform = "translateY(-100px)";
+            }, 100);
+
+            setTimeout(function () {
+                span.style.opacity = "0";
+                span.style.transform = "translateY(-230px)";
+            }, 1000); // 延长显示时间
+
+            // 将span添加到body里
+            document.body.appendChild(span);
+
+            // 3秒后移除元素
+            setTimeout(function () {
+                document.body.removeChild(span);
+            }, 4000);
+        }
+    </script>
+</body>
+
+</html>
