@@ -145,7 +145,7 @@ nextButton.addEventListener('click', function () {
     // 这里可以添加跳转逻辑
     nextButton.addEventListener('click', () => {
         // console.log('998')
-        window.location.href = '../../part4/35.html'
+        window.location.href = '../../part3/3.1.html'
     })
 });
 
