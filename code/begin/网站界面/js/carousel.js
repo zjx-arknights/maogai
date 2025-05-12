@@ -12,7 +12,7 @@
 // thumbnail 和 href 在下面的 for 迴圈 做賦值處理
 let carouselList = [
   { serial: '01', title: '软件融入日常生活', desc: '#dailylife#', thumbnail: '', href: '../../part1/242/242.html' },
-  { serial: '02', title: '软件服务名声', desc: '#hot#', thumbnail: '', href: '../../part2/part2开始.html' },
+  { serial: '02', title: '软件服务民生', desc: '#hot#', thumbnail: '', href: '../../part2/part2开始.html' },
   { serial: '03', title: '软件赋能科技', desc: '#science#', thumbnail: '', href: '../../part3/3.1.html' },
   { serial: '04', title: '软件续写传承', desc: '#dependent#', thumbnail: '', href: '../../part4/35.html' },
   { serial: '01', title: '软件融入日常生活', desc: '#dailylife#', thumbnail: '', href: '../../part1/242/242.html' },
@@ -204,7 +204,9 @@ async function imageZoom(duration, direction, newImg, href) {
   mediaMainPic.innerHTML += mediaMainPic.innerHTML
   const mediaOldImg = mediaMainPic.querySelector('.media-img:nth-child(1)')
   const mediaNewImg = mediaMainPic.querySelector('.media-img:nth-child(2)')
+
   mediaNewImg.href = href
+
   mediaNewImg.style.backgroundImage = `url(${newImg})`
 
   mediaOldImg.style.transformOrigin = oldImgTransformOrigin

@@ -53,12 +53,12 @@ body {
 
 .nums span.in {
     /* 缩短动画时间从1.5s到0.8s */
-    animation: goIn 0.8s ease-in-out;
+    animation: goIn 1s ease-in-out;
 }
 
 .nums span.out {
     /* 缩短动画时间从0.8s到0.5s */
-    animation: goOut 0.5s ease-in-out;
+    animation: goOut 0.6s ease-in-out;
 }
 
 .final {
@@ -151,6 +151,7 @@ body {
 }
 
 @keyframes goOut {
+
     0%,
     30% {
         transform: rotateX(0);

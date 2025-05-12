@@ -43,24 +43,24 @@ replay.addEventListener('click', function () {
     setTimeout(() => {
         this.style.transform = 'scale(1)';
     }, 100);
-    
+
     // 添加过渡效果
     document.body.style.transition = 'opacity 0.5s ease';
     document.body.style.opacity = '0';
-    
+
     setTimeout(() => {
         window.location.href = '../网站界面/index.html';
     }, 500);
 })
 
 // 添加页面加载效果
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.body.style.opacity = '0';
     setTimeout(() => {
         document.body.style.transition = 'opacity 0.5s ease';
         document.body.style.opacity = '1';
     }, 100);
-    
+
     // 默认开启倒计时
     run();
 });
