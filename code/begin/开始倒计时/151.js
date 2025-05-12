@@ -36,10 +36,31 @@ function run() {
     })
 }
 
-// 为'重来'按钮绑定点击事件
+// 为'开始'按钮绑定点击事件
 replay.addEventListener('click', function () {
-    window.open('../网站界面/index.html')
+    // 添加点击效果
+    this.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+        this.style.transform = 'scale(1)';
+    }, 100);
+    
+    // 添加过渡效果
+    document.body.style.transition = 'opacity 0.5s ease';
+    document.body.style.opacity = '0';
+    
+    setTimeout(() => {
+        window.location.href = '../网站界面/index.html';
+    }, 500);
 })
 
-// 默认开启倒计时index
-run();
+// 添加页面加载效果
+window.addEventListener('load', function() {
+    document.body.style.opacity = '0';
+    setTimeout(() => {
+        document.body.style.transition = 'opacity 0.5s ease';
+        document.body.style.opacity = '1';
+    }, 100);
+    
+    // 默认开启倒计时
+    run();
+});
