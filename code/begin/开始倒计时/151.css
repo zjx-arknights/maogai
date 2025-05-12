@@ -8,7 +8,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(to bottom, #fdfbfb, #ebedee);
+    /* 修改为与首页一致的黑蓝渐变背景 */
+    background: linear-gradient(135deg, #0f1923, #213555);
 }
 
 .container {
@@ -28,7 +29,8 @@ body {
 .nums {
     width: 250px;
     height: 150px;
-    color: #5696ff;
+    /* 修改颜色为亮蓝色，与首页搜索框边框颜色一致 */
+    color: rgba(0, 153, 255, 0.8);
     font-size: 80px;
     font-weight: bold;
     display: flex;
@@ -45,14 +47,18 @@ body {
     transform-origin: center center;
     backface-visibility: hidden;
     transform: rotateX(90deg);
+    /* 添加文字阴影效果 */
+    text-shadow: 0 0 10px rgba(0, 153, 255, 0.5);
 }
 
 .nums span.in {
-    animation: goIn 1.5s ease-in-out;
+    /* 缩短动画时间从1.5s到0.8s */
+    animation: goIn 0.8s ease-in-out;
 }
 
 .nums span.out {
-    animation: goOut 0.8s ease-in-out;
+    /* 缩短动画时间从0.8s到0.5s */
+    animation: goOut 0.5s ease-in-out;
 }
 
 .final {
@@ -69,14 +75,36 @@ body {
     animation: show 0.3s ease-in;
 }
 
+.final h1 {
+    /* 修改颜色为浅蓝白色，与首页文字颜色一致 */
+    color: #e0e6f2;
+    margin-bottom: 20px;
+    /* 添加文字阴影 */
+    text-shadow: 0 0 15px rgba(0, 153, 255, 0.7);
+}
+
 .replay {
     width: 100%;
-    background-color: #5696ff;
-    color: #fff;
+    /* 修改按钮背景色为深蓝色 */
+    background-color: rgba(33, 53, 85, 0.9);
+    /* 修改按钮文字颜色为浅蓝白色 */
+    color: #e0e6f2;
     border: none;
     padding: 10px 0;
     margin-top: 20px;
     cursor: pointer;
+    /* 添加按钮阴影 */
+    box-shadow: 0 0 15px rgba(0, 102, 255, 0.3);
+    /* 添加过渡效果 */
+    transition: all 0.3s ease;
+    /* 圆角边框 */
+    border-radius: 4px;
+}
+
+.replay:hover {
+    /* 添加悬停效果 */
+    background-color: rgba(33, 53, 85, 1);
+    box-shadow: 0 0 20px rgba(0, 102, 255, 0.5);
 }
 
 @keyframes hide {
@@ -123,7 +151,6 @@ body {
 }
 
 @keyframes goOut {
-
     0%,
     30% {
         transform: rotateX(0);
